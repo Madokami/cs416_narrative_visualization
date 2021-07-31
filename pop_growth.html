@@ -3,28 +3,32 @@
 
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v4.js"></script>
+<!-- Load d3 annotations -->
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 
 <tr>
     <td>Scene number:</td>
     <td><a href="javascript:navScene1()">1</a></td>
     <td><a href="javascript:navScene2()">2</a></td>
-    <td><a href="#3">3</a></td>
+    <td><a href="javascript:navScene3()">3</a></td>
+    <td><a href="javascript:navScene4()">4</a></td>
+    <td><a href="javascript:navScene5()">5</a></td>
 </tr>
 
-<div id="my_dataviz">
+<div id="my_chart">
     <svg></svg>
 </div>
 <script>
     navScene1();
-    function drawChart(datapath) {
+    function drawChart(datapath, title = "Chart Title") {
         // set the dimensions and margins of the graph
-        var margin = {top: 10, right: 30, bottom: 30, left: 60},
+        var margin = {top: 30, right: 30, bottom: 30, left: 60},
             width = 660 - margin.left - margin.right,
             height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
-        d3.select("#my_dataviz").select("svg").selectAll("*").remove();
-        var svg = d3.select("#my_dataviz")
+        d3.select("#my_chart").select("svg").selectAll("*").remove();
+        var svg = d3.select("#my_chart")
             .select("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -57,6 +61,15 @@
 
                 // This allows to find the closest X index of the mouse:
                 var bisect = d3.bisector(function(d) { return d.date; }).left;
+
+                // Add chart title
+                svg.append("text")
+                    .attr("x", (width / 2))
+                    .attr("y", 0 - (margin.top / 2))
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "16px")
+                    .style("text-decoration", "underline")
+                    .text(title);
 
                 // Create the circle that travels along the curve of chart
                 var focus = svg
@@ -124,10 +137,147 @@
     }
 
     function navScene1() {
-        drawChart("https://raw.githubusercontent.com/Madokami/cs416_narrative_visualization/gh-pages/pop_growth.csv");
+        drawChart("https://raw.githubusercontent.com/Madokami/cs416_narrative_visualization/gh-pages/pop_growth_united_states.csv",
+            "United States (high income) population growth per year");
+        const annotations = [
+            {
+                note: {
+                    label: "0.35",
+                    title: "2020 population growth",
+                    align: "middle",
+                    wrap: 200,
+                    padding: 10
+                },
+                color: ["#69b3a2"],
+                x: 630,
+                y: 300,
+                dy: -50,
+                dx: -180
+            }
+        ]
+
+        // Add annotation to the chart
+        const makeAnnotations = d3.annotation()
+            .annotations(annotations)
+        d3.select("#my_chart")
+            .select("svg")
+            .append("g")
+            .call(makeAnnotations);
     }
 
     function navScene2() {
-        drawChart("https://raw.githubusercontent.com/Madokami/cs416_narrative_visualization/gh-pages/birth_per_thousand.csv")
+        drawChart("https://raw.githubusercontent.com/Madokami/cs416_narrative_visualization/gh-pages/pop_growth_brazil.csv",
+            "Brazil (upper middle income) population growth per year")
+        const annotations = [
+            {
+                note: {
+                    label: "0.71",
+                    title: "2020 population growth",
+                    align: "middle",
+                    wrap: 200,
+                    padding: 10
+                },
+                color: ["#69b3a2"],
+                x: 630,
+                y: 290,
+                dy: 30,
+                dx: -170
+            }
+        ]
+
+        // Add annotation to the chart
+        const makeAnnotations = d3.annotation()
+            .annotations(annotations)
+        d3.select("#my_chart")
+            .select("svg")
+            .append("g")
+            .call(makeAnnotations);
+    }
+
+    function navScene3() {
+        drawChart("https://raw.githubusercontent.com/Madokami/cs416_narrative_visualization/gh-pages/pop_growth_vietnam.csv",
+            "Vietnam (lower middle income) population growth per year")
+        const annotations = [
+            {
+                note: {
+                    label: "0.90",
+                    title: "2020 population growth",
+                    align: "middle",
+                    wrap: 200,
+                    padding: 10
+                },
+                color: ["#69b3a2"],
+                x: 630,
+                y: 270,
+                dy: 50,
+                dx: -120
+            }
+        ]
+
+        // Add annotation to the chart
+        const makeAnnotations = d3.annotation()
+            .annotations(annotations)
+        d3.select("#my_chart")
+            .select("svg")
+            .append("g")
+            .call(makeAnnotations);
+    }
+
+    function navScene4() {
+        drawChart("https://raw.githubusercontent.com/Madokami/cs416_narrative_visualization/gh-pages/pop_growth_uganda.csv",
+            "Uganda (low income) population growth per year")
+        const annotations = [
+            {
+                note: {
+                    label: "3.27",
+                    title: "2020 population growth",
+                    align: "middle",
+                    wrap: 200,
+                    padding: 10
+                },
+                color: ["#69b3a2"],
+                x: 630,
+                y: 75,
+                dy: 60,
+                dx: -80
+            }
+        ]
+
+        // Add annotation to the chart
+        const makeAnnotations = d3.annotation()
+            .annotations(annotations)
+        d3.select("#my_chart")
+            .select("svg")
+            .append("g")
+            .call(makeAnnotations);
+    }
+
+    function navScene5() {
+        drawChart("https://raw.githubusercontent.com/Madokami/cs416_narrative_visualization/gh-pages/pop_growth.csv",
+            "World population growth per year")
+        const annotations = [
+            {
+                note: {
+                    label: "1.03",
+                    title: "2020 population growth",
+                    align: "middle",
+                    wrap: 200,
+                    padding: 10
+                },
+                color: ["#69b3a2"],
+                x: 630,
+                y: 205,
+                dy: 50,
+                dx: -170
+            }
+        ]
+
+        // Add annotation to the chart
+        const makeAnnotations = d3.annotation()
+            .annotations(annotations)
+        d3.select("#my_chart")
+            .select("svg")
+            .append("g")
+            .call(makeAnnotations);
     }
 </script>
