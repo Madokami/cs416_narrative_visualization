@@ -5,6 +5,7 @@
 <script src="https://d3js.org/d3.v4.js"></script>
 
 <tr>
+    <td>Scene number:</td>
     <td><a href="javascript:navScene1()">1</a></td>
     <td><a href="javascript:navScene2()">2</a></td>
     <td><a href="#3">3</a></td>
@@ -33,13 +34,10 @@
 
 //Read the data
         d3.csv(datapath,
-
-            // When reading the csv, I must format variables:
             function(d){
                 return { date : d3.timeParse("%Y-%m-%d")(d.date), value : d.value }
             },
 
-            // Now I can use this dataset:
             function(data) {
 
                 // Add X axis --> it is a date format
